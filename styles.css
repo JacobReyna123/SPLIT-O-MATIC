@@ -9,8 +9,8 @@ body {
     place-items: center;
     padding: 24px;
     font-family: system-ui, sans-serif;
-    background: #eef2ff;
-    color: #1f2937;
+    background: #0a0a0a;
+    color: #00ff66;
 
 
 }
@@ -33,7 +33,7 @@ body {
 
 .card {
     width: min(600 px,100%);
-    background: #fff;
+    background: #111;
     padding: 18px;
     border-radius: 16px;
     box-shadow: 0 10px 24px rgb(79, 70, 229, 0.2);
@@ -59,8 +59,8 @@ button {
     padding: 10px 14px;
     border-radius: 10px;
     border: none;
-    background: #4f46e5;
-    color: #fff;
+    background: #00ff66;
+    color: #0a0a0a;
     cursor: pointer;
 }
 
@@ -72,7 +72,7 @@ Section {
 section h3 {
     margin: 0 0 6px;
     font-size: 14px;
-    color: #4f46e5;
+    color: #00ff66;
 
 }
 
@@ -87,11 +87,11 @@ section h3 {
 .list li {
     padding: 10px;
     border-radius: 10px;
-    background: #f1f5ff;
+    background: #0f0f0f;
 }
 
 .summary li {
     background: #dcfce7;
-    color: #166534;
-    
+    color: #00aa44;
+
 }
