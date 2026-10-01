@@ -2,7 +2,7 @@
     import {ref, computed} from 'vue'
     import Header from './components/Header.vue'
     import Card from './components/Card.vue'
-    import Section from './components/Section.vue';
+    import Section from './components/Section.vue'
 
     const people = ref([])
     const newPerson = ref ('')
@@ -26,12 +26,12 @@ const newExpense = ref ({
 const addExpense = () => {
     const {desc, amount, paidBy} = newExpense.value
 
-    if(!desc.trim || isNAN(parseFloat(amount)) || !paidBy) return
+    if(!desc.trim() || isNaN(parseFloat(amount)) || !paidBy) return
 
     expenses.value.push({
         desc: desc.trim(),
         amount: parseFloat(amount),
-        Paidby
+        paidBy
     })
 
     newExpense.value = {
@@ -40,6 +40,16 @@ const addExpense = () => {
         paidBy:''
     }
 }
+
+const total = computed(() => {
+    return expenses.value.reduce((total, expense) => total + expense.amount, 0).toFixed(2)
+  })
+
+const split = computed(()=> {
+    if (people.value.length===0) return '0.00'
+    return(total.value / people.value.length).toFixed(2)
+})
+
 </script>
 
 
@@ -57,8 +67,7 @@ const addExpense = () => {
             <input id="descInput" type="text" placeholder="Expense Description" v-model="newExpense.desc"/>
             <input id="amountInput" type="number" placeholder="Amount" v-model="newExpense.amount"/>
             <select id="paidBySelect" v-model="newExpense.paidBy">
-                <option v-for="person in people" :key="person" :value="person">{{ person }}</option>
-                    
+                <option v-for="person in people" :key="person" :value="person">{{ person }}</option>   
             </select>
             <button>Add Expense</button>
         </form>
@@ -66,22 +75,26 @@ const addExpense = () => {
         
 
     <Section title="People">
-            <ul id="peopleList" class="list"></ul>
-            <li v-for="person in people" :key="person">
+            <ul id="peopleList" class="list">
+                <li v-for="person in people" :key="person">
                 {{ person }}
             </li>
+            </ul>
+            
     </Section>
 
     <Section title="Expenses">
             <ul id ="expenseList" class="list"> 
-            <li v-for="expense in expenses" :key="expense.paidBy">{{ expense.desc }} - ${{ expense.amount.toFixed(2) }} paid by {{ expense.paidBy }}</li>
+            <li v-for="expense in expenses" :key="expense.paidBy">
+                {{ expense.desc }} - ${{ expense.amount.toFixed(2) }} paid by {{ expense.paidBy }}
+            </li>
         </ul>
     </Section>
 
      <Section title="Total">
             <p>
-                Total Spent: <strong id="totalSpent">$0.00</strong><br/>
-                Split Per Person: <strong id="splitAmount">$0.00</strong><br/>
+                Total Spent: <strong id="totalSpent">${{ total }}</strong><br/>
+                Split Per Person: <strong id="splitAmount">${{ split }}</strong><br/>
 
             </p>
      </Section>
@@ -131,9 +144,11 @@ button {
     padding: 10px;
     border-radius: 10px;
     background: #0f0f0f;
+    display: flex;
+    justify-content: space-between;
 }
 
-.summaryList li {
+.summary li {
     background: #dcfce7;
     color: #00aa44;
 
