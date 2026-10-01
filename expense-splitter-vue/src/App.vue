@@ -1,7 +1,10 @@
 <script setup>
+    import {ref, computed} from 'vue'
     import Header from './components/Header.vue'
     import Card from './components/Card.vue'
     import Section from './components/Section.vue';
+
+    const people = ref(['John', 'Carlos'])
 </script>
 
 
@@ -27,7 +30,11 @@
     </Section>
 
     <Section title="Expenses">
-            <ul id ="expensesList" class="list"> </ul>
+            <ul id ="expensesList" class="list"> 
+            <li v-for="person in people" :key="person">
+                {{ person }}
+            </li>
+        </ul>
     </Section>
 
      <Section title="Total">
