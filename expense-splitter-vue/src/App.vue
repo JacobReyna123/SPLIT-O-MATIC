@@ -1,32 +1,30 @@
 <script setup>
-    import {ref, computed} from 'vue'
-    import Header from './components/Header.vue'
-    import Card from './components/Card.vue'
-    import Section from './components/Section.vue'
+import { ref, computed } from 'vue'
+import Header from './components/Header.vue'
+import Card from './components/Card.vue'
+import Section from './components/Section.vue'
 
-    const people = ref([])
-    const newPerson = ref ('')
-    
-    const addPerson = () => {
-        const name = newPerson.value.trim()
+const people = ref([])
+const newPerson = ref('')
 
-        if(!name) return
-
-        people.value.push(name)
-        newPerson.value = ''
-    }
+const addPerson = () => {
+    const name = newPerson.value.trim()
+    if (!name) return
+    people.value.push(name)
+    newPerson.value = ''
+}
 
 const expenses = ref([])
-const newExpense = ref ({
-    desc:'',
+const newExpense = ref({
+    desc: '',
     amount: 0,
     paidBy: ''
 })
 
 const addExpense = () => {
-    const {desc, amount, paidBy} = newExpense.value
+    const { desc, amount, paidBy } = newExpense.value
 
-    if(!desc.trim() || isNaN(parseFloat(amount)) || !paidBy) return
+    if (!desc.trim() || isNaN(parseFloat(amount)) || !paidBy) return
 
     expenses.value.push({
         desc: desc.trim(),
@@ -37,23 +35,33 @@ const addExpense = () => {
     newExpense.value = {
         desc: '',
         amount: 0,
-        paidBy:''
+        paidBy: ''
     }
 }
 
 const total = computed(() => {
-    return expenses.value.reduce((total, expense) => total + expense.amount, 0).toFixed(2)
-  })
-
-const split = computed(()=> {
-    if (people.value.length===0) return '0.00'
-    return(total.value / people.value.length).toFixed(2)
+    return expenses.value
+        .reduce((total, expense) => total + expense.amount, 0)
+        .toFixed(2)
 })
 
+const split = computed(() => {
+    if (people.value.length === 0) return '0.00'
+    return (total.value / people.value.length).toFixed(2)
+})
+
+  const summaryList = computed(()=> {
+    return people.value.map(person => {
+      const totalPaid = expenses.value
+        .filter(exp => exp.paidBy === person)
+        .reduce((total, expense)=>total+expense.amount, 0)
+
+        const balance = totalPaid - (total.value / people.value.length)
+
+        return `${person} ${balance > 0 ? 'gets' : 'owes'} $${Math.abs(balance).toFixed(2)}`
+    })
+})
 </script>
-
-
-
 
 <template>
     <Header/>
@@ -100,7 +108,10 @@ const split = computed(()=> {
      </Section>
 
     <Section title="summary">
-            <ul id="summaryList" class="list"></ul>
+            <ul id="summaryList" class="list">
+                <li v-for="(summary,index) in summaryList" :key="index">{{ summary }}</li>
+            </ul>
+            
     </Section>
     </card>
   
@@ -148,7 +159,7 @@ button {
     justify-content: space-between;
 }
 
-.summary li {
+.summaryList li {
     background: #dcfce7;
     color: #00aa44;
 
