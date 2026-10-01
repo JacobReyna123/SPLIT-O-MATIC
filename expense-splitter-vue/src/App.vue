@@ -5,14 +5,33 @@
     import Section from './components/Section.vue';
 
     const people = ref(['John', 'Carlos'])
+    const newPerson = ref ('')
+    
+    const addPerson = () => {
+        const name = newPerson.value.trim()
+
+        if(!name) return
+
+        people.value.push(name)
+        newPerson.value = ''
+    }
+
+const expenses = ref([])
+const newExpense = ref ({
+    desc:'',
+    amount: 0,
+    paidBy: ''
+})
 </script>
+
+
 
 
 <template>
     <Header/>
     <Card>
-        <form id="personForm" class="rowform">
-            <input id="personInput" type="text" placeholder="Add person name"/>
+        <form id="personForm" class="rowform" @submit.prevent="addPerson">
+            <input id="personInput" type="text" placeholder="Add person name" v-model="newPerson">
             <button>Add Person</button>
         </form>
 
@@ -24,6 +43,8 @@
             </select>
             <button>Add Expense</button>
         </form>
+
+        
 
     <Section title="People">
             <ul id="peopleList" class="list"></ul>
