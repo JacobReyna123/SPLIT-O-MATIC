@@ -31,15 +31,16 @@ const newExpense = ref ({
     <Header/>
     <Card>
         <form id="personForm" class="rowform" @submit.prevent="addPerson">
-            <input id="personInput" type="text" placeholder="Add person name" v-model="newPerson">
+            <input id="personInput" type="text" placeholder="Add person name" v-model="newPerson"/>
             <button>Add Person</button>
         </form>
 
         <form id="expenseForm" class="rowform">
-            <input id="descInput" type="text" placeholder="Expense Description"/>
-            <input id="amountInput" type="number" placeholder="Amount"/>
-            <select id="paidBySelect">
-                
+            <input id="descInput" type="text" placeholder="Expense Description" v-model="newExpense.desc"/>
+            <input id="amountInput" type="number" placeholder="Amount" v-model="newExpense.amount"/>
+            <select id="paidBySelect" v-model="newExpense.paidBy">
+                <option v-for="person in people" :key="person" :value="person">{{ person }}</option>
+                    
             </select>
             <button>Add Expense</button>
         </form>
