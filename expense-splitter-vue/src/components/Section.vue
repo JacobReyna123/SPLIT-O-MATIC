@@ -10,13 +10,13 @@
 
 <template>
     <section>
-            <h3>{{ title }}</h3>
-            <slot></slot>
-        </section>
-    </template>
+        <h3>{{ title }}</h3>
+        <slot></slot>
+    </section>
+ </template>
 
-    <style scoped>
-Section {
+<style scoped>
+section {
     margin-top: 16px;
 
 }

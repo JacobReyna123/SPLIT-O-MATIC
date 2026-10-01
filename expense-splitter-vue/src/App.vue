@@ -1,6 +1,7 @@
 <script setup>
     import Header from './components/Header.vue'
     import Card from './components/Card.vue'
+    import Section from './components/Section.vue';
 </script>
 
 
@@ -21,26 +22,25 @@
             <button>Add Expense</button>
         </form>
 
-        <section title="People">
-
+    <Section title="People">
             <ul id="peopleList" class="list"></ul>
-        </section>
+    </Section>
 
-        <section title="Expenses">
+    <Section title="Expenses">
             <ul id ="expensesList" class="list"> </ul>
-        </section>
+    </Section>
 
-        <section title="Total">
+     <Section title="Total">
             <p>
                 Total Spent: <strong id="totalSpent">$0.00</strong><br/>
                 Split Per Person: <strong id="splitAmount">$0.00</strong><br/>
 
             </p>
-        </section>
+     </Section>
 
-        <section title="summary">
+    <Section title="summary">
             <ul id="summaryList" class="list"></ul>
-        </section>
+    </Section>
     </card>
   
 </template>
@@ -69,6 +69,26 @@ button {
     background: #00ff66;
     color: #0a0a0a;
     cursor: pointer;
+}
+
+.list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: 8px;
+}
+
+.list li {
+    padding: 10px;
+    border-radius: 10px;
+    background: #0f0f0f;
+}
+
+.summary li {
+    background: #dcfce7;
+    color: #00aa44;
+
 }
 </style>
 
