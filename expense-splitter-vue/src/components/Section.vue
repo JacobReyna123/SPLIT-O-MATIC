@@ -14,3 +14,18 @@
             <slot></slot>
         </section>
     </template>
+
+    <style scoped>
+Section {
+    margin-top: 16px;
+
+}
+
+section h3 {
+    margin: 0 0 6px;
+    font-size: 14px;
+    color: #00ff66;
+
+}
+
+</style>
