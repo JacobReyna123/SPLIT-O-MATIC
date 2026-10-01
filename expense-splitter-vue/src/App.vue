@@ -57,6 +57,7 @@ const split = computed(() => {
         .reduce((total, expense)=>total+expense.amount, 0)
 
         const balance = totalPaid - (total.value / people.value.length)
+        console.log(balance)
 
         return `${person} ${balance > 0 ? 'gets' : 'owes'} $${Math.abs(balance).toFixed(2)}`
     })
