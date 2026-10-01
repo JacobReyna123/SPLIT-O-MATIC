@@ -21,18 +21,16 @@
             <button>Add Expense</button>
         </form>
 
-        <section>
-            <h3>People</h3>
+        <section title="People">
+
             <ul id="peopleList" class="list"></ul>
         </section>
 
-        <section>
-            <h3>Expenses</h3>
+        <section title="Expenses">
             <ul id ="expensesList" class="list"> </ul>
         </section>
 
-        <section>
-            <h3>Total</h3>
+        <section title="Total">
             <p>
                 Total Spent: <strong id="totalSpent">$0.00</strong><br/>
                 Split Per Person: <strong id="splitAmount">$0.00</strong><br/>
@@ -40,8 +38,7 @@
             </p>
         </section>
 
-        <section class="summary">
-            <h3>Summary</h3>
+        <section title="summary">
             <ul id="summaryList" class="list"></ul>
         </section>
     </card>
