@@ -4,7 +4,7 @@
     import Card from './components/Card.vue'
     import Section from './components/Section.vue';
 
-    const people = ref(['John', 'Carlos'])
+    const people = ref([])
     const newPerson = ref ('')
     
     const addPerson = () => {
@@ -22,6 +22,24 @@ const newExpense = ref ({
     amount: 0,
     paidBy: ''
 })
+
+const addExpense = () => {
+    const {desc, amount, paidBy} = newExpense.value
+
+    if(!desc.trim || isNAN(parseFloat(amount)) || !paidBy) return
+
+    expenses.value.push({
+        desc: desc.trim(),
+        amount: parseFloat(amount),
+        Paidby
+    })
+
+    newExpense.value = {
+        desc: '',
+        amount: 0,
+        paidBy:''
+    }
+}
 </script>
 
 
@@ -35,7 +53,7 @@ const newExpense = ref ({
             <button>Add Person</button>
         </form>
 
-        <form id="expenseForm" class="rowform">
+        <form id="expenseForm" class="rowform" @submit.prevent="addExpense">
             <input id="descInput" type="text" placeholder="Expense Description" v-model="newExpense.desc"/>
             <input id="amountInput" type="number" placeholder="Amount" v-model="newExpense.amount"/>
             <select id="paidBySelect" v-model="newExpense.paidBy">
@@ -49,13 +67,14 @@ const newExpense = ref ({
 
     <Section title="People">
             <ul id="peopleList" class="list"></ul>
-    </Section>
-
-    <Section title="Expenses">
-            <ul id ="expensesList" class="list"> 
             <li v-for="person in people" :key="person">
                 {{ person }}
             </li>
+    </Section>
+
+    <Section title="Expenses">
+            <ul id ="expenseList" class="list"> 
+            <li v-for="expense in expenses" :key="expense.paidBy">{{ expense.desc }} - ${{ expense.amount.toFixed(2) }} paid by {{ expense.paidBy }}</li>
         </ul>
     </Section>
 
